@@ -40,4 +40,12 @@ class ProductController
         Product::create($data);
         return redirect('products');
     }
+
+    public function edit($id)
+    {
+        $product = Product::find($id);
+        $categories = Category::all();
+
+        return view('edit', compact('product', 'categories'));
+    }
 }
