@@ -1,5 +1,7 @@
 <?php
 
+use App\Controllers\ProductController;
+
 require_once __DIR__ . '/../env.php';
 require_once __DIR__ . "/../app/helpers.php";
 
@@ -16,6 +18,9 @@ $router->get('/', function () {
 });
 
 //code router mới ở đây
+$router->mount('/products', function () use ($router) {
+    $router->get('/', ProductController::class . "@index");
+});
 
 
 $router->set404(function () {

@@ -6,7 +6,7 @@ const APP_DIR = __DIR__;
 
 //Database
 const HOST = "localhost";
-const DBNAME = "";
+const DBNAME = "test_php2";
 const USERNAME = "root";
 const PASSWORD = "";
 const PORT = 3306;
