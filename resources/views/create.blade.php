@@ -7,7 +7,7 @@
 @section('content')
     <div class="container w-60">
         <h1>Thêm mới sản phẩm</h1>
-        <form action="" method="post" enctype="multipart/form-data">
+        <form action="{{ route('products/store') }}" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="" class="form-label">Name</label>
                 <input type="text" name="name" id="" class="form-control">

@@ -30,8 +30,8 @@
                         <td>
                             <img src="{{ file_url($product->img_thumbnail) }}" width="90" alt="">
                         </td>
-                        <td>{{ date('d/m/Y H:i:s', strtotime($product->created_at)) }}</td>
-                        <td>{{ date('d/m/Y H:i:s', strtotime($product->updated_at)) }}</td>
+                        <td>{{ $product->created_at ? date('d/m/Y H:i:s', strtotime($product->created_at)) : '' }}</td>
+                        <td>{{ $product->updated_at ? date('d/m/Y H:i:s', strtotime($product->updated_at)) : '' }}</td>
 
                         <td>
                             <a href="{{ route("products/{$product->id}/edit") }}" class="btn btn-primary">Edit</a>
