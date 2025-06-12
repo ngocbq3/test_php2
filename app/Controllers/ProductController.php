@@ -26,12 +26,33 @@ class ProductController
     {
         $data = $_POST;
 
+        //Validate
+        $errors = []; //để lưu các lỗi xảy ra khi validate
+        if (trim($data['name']) == "") {
+            $errors['name'] = "Bạn cần nhập tên sản phẩm";
+        }
+
         //Xử lý ảnh
         if (is_upload('img_thumbnail')) {
             $file = $_FILES['img_thumbnail'];
-            $image = upload_file($file, 'images');
-            //add image vào data
-            $data['img_thumbnail'] = $image;
+
+            //mảng imgs chứa định dạng ảnh được phép
+            $imgs = ['jpg', 'jpeg', 'png'];
+            //Lấy định dạng của file
+            $ext_file = pathinfo($file['name'], PATHINFO_EXTENSION);
+            //Kiểm tra xem định dạng có được phép không
+            if (in_array($ext_file, $imgs)) {
+                $image = upload_file($file, 'images');
+                //add image vào data
+                $data['img_thumbnail'] = $image;
+            } else {
+                $errors['img_thumbnail'] = "Bạn chưa nhập đúng định dạng ảnh";
+            }
+        }
+
+        if ($errors) {
+            $categories = Category::all();
+            return view('create', compact('categories', 'errors', 'data'));
         }
 
         $data['created_at'] = date('Y-m-d H:i:s');
