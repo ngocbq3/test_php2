@@ -75,4 +75,14 @@ class ProductController
         }
         return redirect('products');
     }
+
+    public function destroy($id)
+    {
+        $product = Product::find($id);
+        Product::delete($id);
+        if (file_exists($product->img_thumbnail)) {
+            unlink($product->img_thumbnail);
+        }
+        redirect('products');
+    }
 }
