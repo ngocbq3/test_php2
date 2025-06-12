@@ -48,4 +48,31 @@ class ProductController
 
         return view('edit', compact('product', 'categories'));
     }
+
+    //lưu sửa
+    public function update($id)
+    {
+        //Lấy sản phẩm cũ
+        $product = Product::find($id);
+        $data = $_POST; //lấy dữ liệu trên form
+
+        //Xử lý ảnh
+        if (is_upload('img_thumbnail')) {
+            $file = $_FILES['img_thumbnail'];
+            $image = upload_file($file, 'images');
+            //add image vào data
+            $data['img_thumbnail'] = $image;
+        }
+        $data['updated_at'] = date('Y-m-d H:i:s');
+
+        Product::update($id, $data);
+
+        //Xóa ảnh cũ
+        if (is_upload('img_thumbnail')) {
+            if (file_exists($product->img_thumbnail)) {
+                unlink($product->img_thumbnail);
+            }
+        }
+        return redirect('products');
+    }
 }
